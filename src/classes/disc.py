@@ -3,3 +3,4 @@ class Disc:
         self.x = x
         self.y = y
         self.value = 0
+        self.player = 0

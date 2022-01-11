@@ -1,35 +1,38 @@
-import tkinter as tk
+from tkinter import *
 import params
 from src.classes.matrix import Matrix
 
 
-# Initialization of the window
-class App(tk.Frame):
-    def __init__(self, master):
-        super().__init__(master)
-        self.pack()
-        main()
-
-
 # Main function --> Start the game
-def main():
+def main(self):
     print("--- Création de la matrice ---\n")
     matrix = Matrix(params.height, params.width)
-    init_grid(params.height, params.width)
 
-
-# Create the grid to play
-def init_grid(height, width):
     print("--- Création de la grille de jeu ---\n")
+    self.init_grid(params.height, params.width)
 
 
-root = tk.Tk()
-connect4App = App(root)
+# Initialization of the window
+class Window(Frame):
+    def __init__(self, master=None):
+        Frame.__init__(self, master)
+        self.master = master
+        main(self)
 
-# Declaration of window dimensions
-connect4App.master.title("Puissance 4")
-connect4App.master.geometry("700x600")
-connect4App.master.maxsize(700, 600)
-connect4App.master.minsize(700, 600)
+    # Create the grid to play
+    def init_grid(self, height, width):
+        print('')
 
-connect4App.mainloop()
+
+# Initialization of tkinter
+root = Tk()
+connect4App = Window(root)
+
+# Declaration of window (title, dimensions, etc..)
+root.title("Puissance 4")
+root.geometry("700x600")
+root.maxsize(700, 600)
+root.minsize(700, 600)
+
+# Show window
+root.mainloop()
