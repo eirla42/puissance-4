@@ -27,8 +27,8 @@ class Window(Frame):
         # Canvas
         self.canvas = None
 
-        # Discs
-        self.discs = None
+        # Discs to play
+        self.discs_to_play = []
 
         # Dimensions
         self.nb_lines = params.nb_lines
@@ -47,34 +47,40 @@ class Window(Frame):
     def init_grid(self):
         width = self.cell_width
         for line in self.matrix.lines:
-            for column in line:
+            for disc in line:
                 # Cell coordinates (top left, bottom right)
-                top = column.y * width
+                top = disc.y * width
                 bottom = top + width
-                left = column.x * width - width
+                left = disc.x * width - width
                 right = left + width
 
                 # Cells
                 self.canvas.create_rectangle(left, top, right, bottom, outline="gray", tags="grid")
 
-                # Discs in the grid
-                width_to_add_or_remove = 0.13 * width
-                top += width_to_add_or_remove
-                bottom -= width_to_add_or_remove
-                left += width_to_add_or_remove
-                right -= width_to_add_or_remove
-                self.canvas.create_oval(
-                    left, top, right, bottom, outline="gray", tags="grid"
+                # Discs in the grid (smaller than a cell)
+                width_coefficient = 0.13 * width
+                top += width_coefficient
+                bottom -= width_coefficient
+                left += width_coefficient
+                right -= width_coefficient
+
+                # List of discs
+                self.matrix.lines[self.matrix.lines.index(line)][line.index(disc)].shape = self.canvas.create_oval(
+                    left, top, right, bottom, outline="gray"
                 )
 
                 # Discs used to play (above the grid)
-                if column.y == 1:
-                    top = 0 + width_to_add_or_remove
-                    bottom = width - width_to_add_or_remove
-                    self.canvas.create_oval(
-                        left, top, right, bottom,
-                        outline="gray", tags="disc_to_play_" + str(column.x),
-                        activefill='yellow', activeoutline="black"
+                if disc.y == 1:  # Only create the disc for one line (it could be equals to 1, 2, etc.)
+                    top = 0 + width_coefficient
+                    bottom = width - width_coefficient
+
+                    # List of discs to play
+                    self.discs_to_play.append(
+                        self.canvas.create_oval(
+                            left, top, right, bottom,
+                            outline="lightgray", tags="disc_to_play_" + str(disc.x),
+                            activefill='yellow', activeoutline="black"
+                        )
                     )
 
 

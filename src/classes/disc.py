@@ -4,3 +4,4 @@ class Disc:
         self.y = y  # line
         self.value = 0
         self.player = 0
+        self.shape = None

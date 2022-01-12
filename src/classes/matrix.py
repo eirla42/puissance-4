@@ -32,16 +32,16 @@ class Matrix:
     def display_matrix_with_coordinates(self):
         print("Affichage de la matrice par coordonnées")
         for line in self.lines:
-            for column in line:
-                print([column.x, column.y], end=" ")
+            for disc in line:
+                print([disc.x, disc.y], end=" ")
             print("")
         print("")
 
     # Display all value of Discs in a Matrix
     def display_matrix_with_value(self):
         print("Affichage de la matrice par valeur")
-        for row in self.lines:
-            for column in row:
-                print(column.value, end=" ")
+        for line in self.lines:
+            for disc in line:
+                print(disc.value, end=" ")
             print("")
         print("")
