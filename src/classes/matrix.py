@@ -2,11 +2,11 @@ from src.classes.disc import Disc
 
 
 class Matrix:
-    def __init__(self, height, width):
+    def __init__(self, nb_columns, nb_lines):
         # Attributes
-        self.height = height
-        self.width = width
-        self.rows = []
+        self.nb_columns = nb_columns
+        self.nb_lines = nb_lines
+        self.lines = []
 
         # Init the matrix
         self.init_matrix()
@@ -14,15 +14,15 @@ class Matrix:
     # Initialize the matrix with Disc
     def init_matrix(self):
         # Lines
-        for i in range(self.width, 0, -1):
+        for i in range(self.nb_lines, 0, -1):
             temp_line = []
 
             # Columns
-            for j in range(self.height + 1, 0, -1):
-                temp_line.append(Disc(i, j))
+            for j in range(1, self.nb_columns + 1, 1):
+                temp_line.append(Disc(j, i))
 
             # Adding lines to the matrix
-            self.rows.append(temp_line)
+            self.lines.append(temp_line)
 
         # Display matrix to see if it works correctly
         self.display_matrix_by_coordinates()
@@ -31,8 +31,8 @@ class Matrix:
     # Display all coordinates of Discs in a Matrix
     def display_matrix_by_coordinates(self):
         print("Affichage de la matrice par coordonnées")
-        for row in self.rows:
-            for column in row:
+        for line in self.lines:
+            for column in line:
                 print([column.x, column.y], end=" ")
             print("")
         print("")
@@ -40,7 +40,7 @@ class Matrix:
     # Display all value of Discs in a Matrix
     def display_matrix_by_value(self):
         print("Affichage de la matrice par valeur")
-        for row in self.rows:
+        for row in self.lines:
             for column in row:
                 print(column.value, end=" ")
             print("")
