@@ -37,7 +37,7 @@ class Window(Frame):
     # Create canvas
     def init_canvas(self):
         width = self.cell_width
-        self.canvas = Canvas(root, bg="seashell", height=self.nb_lines * width, width=self.nb_columns * width)
+        self.canvas = Canvas(root, bg="seashell", height=(self.nb_lines + 1) * width, width=self.nb_columns * width)
         self.canvas.pack()
 
     # Create the grid to play
@@ -46,13 +46,13 @@ class Window(Frame):
         for line in self.matrix.lines:
             for column in line:
                 # Cell coordinates (top left, bottom right)
-                top = column.y * width - width
+                top = column.y * width
                 bottom = top + width
                 left = column.x * width - width
                 right = left + width
 
                 # Cell
-                self.canvas.create_rectangle(left, top, right, bottom, outline="gray", fill="", tags="grid")
+                self.canvas.create_rectangle(left, top, right, bottom, outline="gray", tags="grid")
 
 
 # Initialization of tkinter
@@ -61,8 +61,8 @@ connect4App = Window(root)
 
 # Declaration of window (title, dimensions, etc..)
 root.title("Puissance 4")
-root.maxsize(params.nb_columns * params.cell_width, params.nb_lines * params.cell_width)
-root.minsize(params.nb_columns * params.cell_width, params.nb_lines * params.cell_width)
+root.maxsize(params.nb_columns * params.cell_width, (params.nb_lines + 1) * params.cell_width)
+root.minsize(params.nb_columns * params.cell_width, (params.nb_lines + 1) * params.cell_width)
 
 # Show window
 root.mainloop()
