@@ -6,7 +6,7 @@ from src.classes.matrix import Matrix
 # Main function --> Start the game
 def main(window):
     print("--- Création de la matrice ---\n")
-    matrix = Matrix(window.nb_columns, window.nb_lines)
+    window.matrix = Matrix(window.nb_columns, window.nb_lines)
 
     print("--- Création du canvas ---\n")
     window.init_canvas()
@@ -21,7 +21,13 @@ class Window(Frame):
         Frame.__init__(self, master)
         self.master = master
 
+        # Matrix
+        self.matrix = None
+
+        # Canvas
         self.canvas = None
+
+        # Dimensions
         self.nb_lines = params.nb_lines
         self.nb_columns = params.nb_columns
         self.cell_width = params.cell_width
@@ -36,7 +42,17 @@ class Window(Frame):
 
     # Create the grid to play
     def init_grid(self):
-        print('')
+        width = self.cell_width
+        for line in self.matrix.lines:
+            for column in line:
+                # Cell coordinates (top left, bottom right)
+                top = column.y * width - width
+                bottom = top + width
+                left = column.x * width - width
+                right = left + width
+
+                # Cell
+                self.canvas.create_rectangle(left, top, right, bottom, outline="gray", fill="", tags="grid")
 
 
 # Initialization of tkinter
