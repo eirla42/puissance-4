@@ -11,7 +11,7 @@ def main(window):
     print("--- Création du canvas ---\n")
     window.init_canvas()
 
-    print("--- Création de la grille de jeu ---\n")
+    print("--- Création de la grille de jeu avec les positions des jetons ---\n")
     window.init_grid()
 
 
@@ -26,6 +26,9 @@ class Window(Frame):
 
         # Canvas
         self.canvas = None
+
+        # Discs
+        self.discs = None
 
         # Dimensions
         self.nb_lines = params.nb_lines
@@ -51,8 +54,28 @@ class Window(Frame):
                 left = column.x * width - width
                 right = left + width
 
-                # Cell
+                # Cells
                 self.canvas.create_rectangle(left, top, right, bottom, outline="gray", tags="grid")
+
+                # Discs in the grid
+                width_to_add_or_remove = 0.13 * width
+                top += width_to_add_or_remove
+                bottom -= width_to_add_or_remove
+                left += width_to_add_or_remove
+                right -= width_to_add_or_remove
+                self.canvas.create_oval(
+                    left, top, right, bottom, outline="gray", tags="grid"
+                )
+
+                # Discs used to play (above the grid)
+                if column.y == 1:
+                    top = 0 + width_to_add_or_remove
+                    bottom = width - width_to_add_or_remove
+                    self.canvas.create_oval(
+                        left, top, right, bottom,
+                        outline="gray", tags="disc_to_play_" + str(column.x),
+                        activefill='yellow', activeoutline="black"
+                    )
 
 
 # Initialization of tkinter
