@@ -80,16 +80,23 @@ class Window(Frame):
     def add_event_on_click(self):
         self.canvas.bind("<Button-1>", self.on_click)
 
-    # Event on motion --> When the mouse moves onto a column,
+    # Event on motion --> When the mouse moves onto a column, show the player's color disc
     def on_motion(self, event):
         column_coords = self.canvas.canvasy(event.x)  # Select column
         line_coords = self.cell_width / 2  # Select the line of discs to play
-        sq = self.canvas.find_closest(column_coords, line_coords)[0]
-        self.canvas.itemconfigure(sq, fill="red")
+
+        # Find the right disc and show only this one
+        closest_disc = self.canvas.find_closest(column_coords, line_coords)[0]
+        self.canvas.itemconfigure(closest_disc, fill='yellow', outline="black")
+        for disc in self.discs_to_play:
+            if disc != closest_disc:
+                self.canvas.itemconfigure(disc, fill='seashell', outline="lightgray")
 
     # Event on click --> Add a disc on a column
     def on_click(self, event):
         column_coords = self.canvas.canvasy(event.x)  # Select column
         line_coords = self.cell_width / 2  # Select the line of discs to play
-        sq = self.canvas.find_closest(column_coords, line_coords)[0]
-        self.canvas.itemconfigure(sq, fill="black")
+
+        # Find the right disc and hide it
+        closest_disc = self.canvas.find_closest(column_coords, line_coords)[0]
+        self.canvas.itemconfigure(closest_disc, fill='seashell', outline="lightgray")
