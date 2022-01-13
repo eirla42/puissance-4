@@ -13,6 +13,10 @@ def main(window):
 
     print("--- Création de la grille de jeu avec les positions des jetons ---\n")
     window.init_grid()
+    # ################## print("Coordinates of the object are:", window.canvas.coords(window.discs_to_play[6]))
+
+    print("--- Création de l'événement d'ajout d'un jeton sur une colonne ---\n")
+    window.add_event_on_click()
 
 
 # Initialization of the window
@@ -82,6 +86,16 @@ class Window(Frame):
                             activefill='yellow', activeoutline="black"
                         )
                     )
+
+    def add_event_on_click(self):
+        self.canvas.bind("<Button-1>", self.on_click)
+
+    # Event on click --> Add a disc on a column
+    def on_click(self, event):
+        x = self.canvas.canvasy(event.x)  # Select column
+        y = self.cell_width/2  # Select the line of discs to play
+        sq = self.canvas.find_closest(x, y)[0]
+        self.canvas.itemconfigure(sq, fill="black")
 
 
 # Initialization of tkinter
