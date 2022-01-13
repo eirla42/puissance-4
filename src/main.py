@@ -92,9 +92,9 @@ class Window(Frame):
 
     # Event on click --> Add a disc on a column
     def on_click(self, event):
-        x = self.canvas.canvasy(event.x)  # Select column
-        y = self.cell_width/2  # Select the line of discs to play
-        sq = self.canvas.find_closest(x, y)[0]
+        column_coords = self.canvas.canvasy(event.x)  # Select column
+        line_coords = self.cell_width/2  # Select the line of discs to play
+        sq = self.canvas.find_closest(column_coords, line_coords)[0]
         self.canvas.itemconfigure(sq, fill="black")
 
 
