@@ -1,28 +1,9 @@
 from tkinter import *
-import params
-from src.classes.matrix import Matrix
+
+from src.classes.main import Main
+from src.params import params
 
 
-# Main function --> Start the game
-def main(window):
-    print("--- Création de la matrice ---\n")
-    window.matrix = Matrix(window.nb_columns, window.nb_lines)
-
-    print("--- Création du canvas ---\n")
-    window.init_canvas()
-
-    print("--- Création de la grille de jeu avec les positions des jetons ---\n")
-    window.init_grid()
-    # ################## print("Coordinates of the object are:", window.canvas.coords(window.discs_to_play[6]))
-
-    print("--- Création de l'événement animant les jetons pour jouer ---\n")
-    window.add_event_on_motion()
-
-    print("--- Création de l'événement d'ajout d'un jeton sur une colonne ---\n")
-    window.add_event_on_click()
-
-
-# Initialization of the window
 class Window(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
@@ -42,12 +23,13 @@ class Window(Frame):
         self.nb_columns = params.nb_columns
         self.cell_width = params.cell_width
 
-        main(self)
+        Main(self)
 
     # Create canvas
     def init_canvas(self):
         width = self.cell_width
-        self.canvas = Canvas(root, bg="seashell", height=(self.nb_lines + 1) * width, width=self.nb_columns * width)
+        self.canvas = Canvas(self.master, bg="seashell",
+                             height=(self.nb_lines + 1) * width, width=self.nb_columns * width)
         self.canvas.pack()
 
     # Create the grid to play
@@ -108,19 +90,6 @@ class Window(Frame):
     # Event on click --> Add a disc on a column
     def on_click(self, event):
         column_coords = self.canvas.canvasy(event.x)  # Select column
-        line_coords = self.cell_width/2  # Select the line of discs to play
+        line_coords = self.cell_width / 2  # Select the line of discs to play
         sq = self.canvas.find_closest(column_coords, line_coords)[0]
         self.canvas.itemconfigure(sq, fill="black")
-
-
-# Initialization of tkinter
-root = Tk()
-connect4App = Window(root)
-
-# Declaration of window (title, dimensions, etc..)
-root.title("Puissance 4")
-root.maxsize(params.nb_columns * params.cell_width, (params.nb_lines + 1) * params.cell_width)
-root.minsize(params.nb_columns * params.cell_width, (params.nb_lines + 1) * params.cell_width)
-
-# Show window
-root.mainloop()
