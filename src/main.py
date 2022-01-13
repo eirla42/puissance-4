@@ -15,6 +15,9 @@ def main(window):
     window.init_grid()
     # ################## print("Coordinates of the object are:", window.canvas.coords(window.discs_to_play[6]))
 
+    print("--- Création de l'événement animant les jetons pour jouer ---\n")
+    window.add_event_on_motion()
+
     print("--- Création de l'événement d'ajout d'un jeton sur une colonne ---\n")
     window.add_event_on_click()
 
@@ -87,8 +90,20 @@ class Window(Frame):
                         )
                     )
 
+    # Event on motion
+    def add_event_on_motion(self):
+        self.canvas.bind("<Motion>", self.on_motion)
+
+    # Event on click
     def add_event_on_click(self):
         self.canvas.bind("<Button-1>", self.on_click)
+
+    # Event on motion --> When the mouse moves onto a column,
+    def on_motion(self, event):
+        column_coords = self.canvas.canvasy(event.x)  # Select column
+        line_coords = self.cell_width / 2  # Select the line of discs to play
+        sq = self.canvas.find_closest(column_coords, line_coords)[0]
+        self.canvas.itemconfigure(sq, fill="red")
 
     # Event on click --> Add a disc on a column
     def on_click(self, event):
