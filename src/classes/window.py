@@ -79,9 +79,17 @@ class Window(Frame):
     def add_event_on_motion(self):
         self.canvas.bind('<Motion>', self.on_motion)
 
+    # Destroy event on motion
+    def destroy_event_on_motion(self):
+        self.canvas.unbind('<Motion>')
+
     # Event on click
     def add_event_on_click_column(self):
         self.canvas.bind('<Button-1>', self.on_click_column)
+
+    # Destroy event on click
+    def destroy_event_on_click_column(self):
+        self.canvas.unbind('<Button-1>')
 
     # Event on motion --> When the mouse moves onto a column, show the player's color disc
     def on_motion(self, event):
@@ -116,6 +124,29 @@ class Window(Frame):
             # Check if 4 discs are connected --> If a player is the winner
             if self.matrix.has_winner(self.active_player):
                 print("Winner :" + self.active_player.name)
-
+                self.game_over()
             # Switch player
-            self.active_player = self.active_player.switch_player(self.player1, self.player2)
+            else:
+                self.active_player = self.active_player.switch_player(self.player1, self.player2)
+
+    # End of the game
+    def game_over(self):
+        game_over_text = self.active_player.name + " wins !"
+        self.canvas.create_text(0, -100, text=game_over_text, font=('Times New Roman', self.cell_width // 2, 'bold'), fill='black',
+                                tags="game_over_text", anchor='w')
+
+        # Start the moving text and lock the game
+        self.game_over_text_animation()
+        self.destroy_event_on_motion()
+        self.destroy_event_on_click_column()
+
+    # Text animation with winner
+    def game_over_text_animation(self):
+        x1, y1, x2, y2 = self.canvas.bbox("game_over_text")
+        if x2 < 0 or y1 < 0:  # Reset coordinates
+            x1 = self.canvas.winfo_width()
+            y1 = self.canvas.winfo_height() // 2
+            self.canvas.coords("game_over_text", x1, y1)
+        else:
+            self.canvas.move("game_over_text", -2, 0)
+        self.canvas.after(30, self.game_over_text_animation)
