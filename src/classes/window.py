@@ -113,5 +113,9 @@ class Window(Frame):
             self.matrix = temp_matrix
             self.canvas.itemconfigure(changed_disc.shape, fill=changed_disc.player.color, outline='black')
 
+            # Check if 4 discs are connected --> If a player is the winner
+            if self.matrix.has_winner(self.active_player):
+                print("Winner :" + self.active_player.name)
+
             # Switch player
             self.active_player = self.active_player.switch_player(self.player1, self.player2)

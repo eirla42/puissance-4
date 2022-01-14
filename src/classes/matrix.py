@@ -49,6 +49,7 @@ class Matrix:
     # Insert player's disc into Matrix
     def play(self, player, nb_column):
         is_disc_found = False
+        changed_disc = None
 
         # Find the lowest disc
         for line in reversed(self.lines):
@@ -57,12 +58,38 @@ class Matrix:
                     disc.value = player.id
                     disc.player = player
                     is_disc_found = True
+                    changed_disc = disc
                     break
 
             # If a disc has changed, we don't need to go to the next line
             if is_disc_found:
                 break
 
-        self.display_matrix_with_value()
+        return [self, changed_disc] if is_disc_found else [None, None]
 
-        return [self, disc] if is_disc_found else [None, None]
+    # Check if 4 discs are connected
+    def has_winner(self, active_player):
+        player_id = active_player.id
+        # Check horizontal win
+        for line in range(self.nb_lines):
+            for column in range(self.nb_columns - 3):
+                if (self.lines[line][column].value == player_id and
+                        self.lines[line][column + 1].value == player_id and
+                        self.lines[line][column + 2].value == player_id and
+                        self.lines[line][column + 3].value == player_id):
+                    return True
+
+        # Check vertical win
+        for line in range(self.nb_lines - 3):
+            for column in range(self.nb_columns):
+                if (self.lines[line][column].value == player_id and
+                        self.lines[line + 1][column].value == player_id and
+                        self.lines[line + 2][column].value == player_id and
+                        self.lines[line + 3][column].value == player_id):
+                    return True
+
+        # Check positively sloped diagonal win
+
+        # Check negatively sloped diagonal win
+
+        return False
