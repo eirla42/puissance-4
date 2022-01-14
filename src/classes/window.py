@@ -58,10 +58,9 @@ class Window(Frame):
                 left += width_coefficient
                 right -= width_coefficient
 
-                # List of discs
-                self.matrix.lines[self.matrix.lines.index(line)][line.index(disc)].shape = self.canvas.create_oval(
-                    left, top, right, bottom, outline='gray'
-                )
+                # List of discs (from bottom to top)
+                self.matrix.lines[(self.nb_lines - 1) - self.matrix.lines.index(line)][line.index(disc)].shape = \
+                    self.canvas.create_oval(left, top, right, bottom, outline='gray')
 
                 # Discs used to play (above the grid)
                 if disc.y == 1:  # Only create the disc for one line (it could be equals to 1, 2, etc.)
