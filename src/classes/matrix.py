@@ -45,3 +45,23 @@ class Matrix:
                 print(disc.value, end=' ')
             print('')
         print('')
+
+    # Insert player's disc into Matrix
+    def play(self, player, nb_column):
+        is_disc_found = False
+
+        # Find the lowest disc
+        for line in reversed(self.lines):
+            for disc in line:
+                if disc == line[nb_column] and disc.value == 0:
+                    disc.value = player.id
+                    disc.player = player
+                    is_disc_found = True
+
+            # If a disc has changed, we don't need to go to the next line
+            if is_disc_found:
+                break
+
+        self.display_matrix_with_value()
+
+        return self if is_disc_found else None

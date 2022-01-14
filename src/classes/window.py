@@ -98,12 +98,22 @@ class Window(Frame):
 
     # Event on click --> Add a disc on a column
     def on_click_column(self, event):
-        column_coords = self.canvas.canvasy(event.x)  # Select column
+        column_coords = self.canvas.canvasx(event.x)  # Select column
         line_coords = self.cell_width / 2  # Select the line of discs to play
 
         # Find the right disc and hide it
         closest_disc = self.canvas.find_closest(column_coords, line_coords)[0]
         self.canvas.itemconfigure(closest_disc, fill='seashell', outline='lightgray')
 
-        # Switch player
-        self.active_player = self.active_player.switch_player(self.player1, self.player2)
+        # Add player's disc to matrix
+        temp_matrix = self.matrix.play(self.active_player, int(column_coords // self.cell_width))
+
+        if temp_matrix:
+            self.matrix = temp_matrix
+            self.display_disc()
+
+            # Switch player
+            self.active_player = self.active_player.switch_player(self.player1, self.player2)
+
+    def display_disc(self):
+        pass
