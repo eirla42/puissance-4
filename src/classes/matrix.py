@@ -88,8 +88,22 @@ class Matrix:
                         self.lines[line + 3][column].value == player_id):
                     return True
 
-        # Check positively sloped diagonal win
+        # Check ascending diagonal win
+        for line in range(3, self.nb_lines):
+            for column in range(self.nb_columns - 3):
+                if (self.lines[line][column].value == player_id and
+                        self.lines[line - 1][column + 1].value == player_id and
+                        self.lines[line - 2][column + 2].value == player_id and
+                        self.lines[line - 3][column + 3].value == player_id):
+                    return True
 
-        # Check negatively sloped diagonal win
+        # Check descending diagonal win
+        for line in range(self.nb_lines - 3):
+            for column in range(self.nb_columns - 3):
+                if (self.lines[line][column].value == player_id and
+                        self.lines[line + 1][column + 1].value == player_id and
+                        self.lines[line + 2][column + 2].value == player_id and
+                        self.lines[line + 3][column + 3].value == player_id):
+                    return True
 
         return False
