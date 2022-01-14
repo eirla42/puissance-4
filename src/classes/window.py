@@ -106,14 +106,13 @@ class Window(Frame):
         self.canvas.itemconfigure(closest_disc, fill='seashell', outline='lightgray')
 
         # Add player's disc to matrix
-        temp_matrix = self.matrix.play(self.active_player, int(column_coords // self.cell_width))
+        matrix_and_changed_disc = self.matrix.play(self.active_player, int(column_coords // self.cell_width))
+        temp_matrix = matrix_and_changed_disc[0]
+        changed_disc = matrix_and_changed_disc[1]
 
         if temp_matrix:
             self.matrix = temp_matrix
-            self.display_disc()
+            self.canvas.itemconfigure(changed_disc.shape, fill=changed_disc.player.color, outline='black')
 
             # Switch player
             self.active_player = self.active_player.switch_player(self.player1, self.player2)
-
-    def display_disc(self):
-        pass

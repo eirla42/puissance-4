@@ -57,6 +57,7 @@ class Matrix:
                     disc.value = player.id
                     disc.player = player
                     is_disc_found = True
+                    break
 
             # If a disc has changed, we don't need to go to the next line
             if is_disc_found:
@@ -64,4 +65,4 @@ class Matrix:
 
         self.display_matrix_with_value()
 
-        return self if is_disc_found else None
+        return [self, disc] if is_disc_found else [None, None]
