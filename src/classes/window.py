@@ -9,6 +9,11 @@ class Window(Frame):
         Frame.__init__(self, master)
         self.master = master
 
+        # Players
+        self.active_player = None
+        self.player1 = None
+        self.player2 = None
+
         # Matrix
         self.matrix = None
 
@@ -28,7 +33,7 @@ class Window(Frame):
     # Create canvas
     def init_canvas(self):
         width = self.cell_width
-        self.canvas = Canvas(self.master, bg="seashell",
+        self.canvas = Canvas(self.master, bg='seashell',
                              height=(self.nb_lines + 1) * width, width=self.nb_columns * width)
         self.canvas.pack()
 
@@ -44,7 +49,7 @@ class Window(Frame):
                 right = left + width
 
                 # Cells
-                self.canvas.create_rectangle(left, top, right, bottom, outline="gray", tags="grid")
+                self.canvas.create_rectangle(left, top, right, bottom, outline='gray', tags='grid')
 
                 # Discs in the grid (smaller than a cell)
                 width_coefficient = 0.13 * width
@@ -55,7 +60,7 @@ class Window(Frame):
 
                 # List of discs
                 self.matrix.lines[self.matrix.lines.index(line)][line.index(disc)].shape = self.canvas.create_oval(
-                    left, top, right, bottom, outline="gray"
+                    left, top, right, bottom, outline='gray'
                 )
 
                 # Discs used to play (above the grid)
@@ -67,18 +72,17 @@ class Window(Frame):
                     self.discs_to_play.append(
                         self.canvas.create_oval(
                             left, top, right, bottom,
-                            outline="lightgray", tags="disc_to_play_" + str(disc.x),
-                            activefill='yellow', activeoutline="black"
+                            outline='lightgray', tags='disc_to_play_' + str(disc.x)
                         )
                     )
 
     # Event on motion
     def add_event_on_motion(self):
-        self.canvas.bind("<Motion>", self.on_motion)
+        self.canvas.bind('<Motion>', self.on_motion)
 
     # Event on click
-    def add_event_on_click(self):
-        self.canvas.bind("<Button-1>", self.on_click)
+    def add_event_on_click_column(self):
+        self.canvas.bind('<Button-1>', self.on_click_column)
 
     # Event on motion --> When the mouse moves onto a column, show the player's color disc
     def on_motion(self, event):
@@ -87,16 +91,19 @@ class Window(Frame):
 
         # Find the right disc and show only this one
         closest_disc = self.canvas.find_closest(column_coords, line_coords)[0]
-        self.canvas.itemconfigure(closest_disc, fill='yellow', outline="black")
+        self.canvas.itemconfigure(closest_disc, fill=self.active_player.color, outline='black')
         for disc in self.discs_to_play:
             if disc != closest_disc:
-                self.canvas.itemconfigure(disc, fill='seashell', outline="lightgray")
+                self.canvas.itemconfigure(disc, fill='seashell', outline='lightgray')
 
     # Event on click --> Add a disc on a column
-    def on_click(self, event):
+    def on_click_column(self, event):
         column_coords = self.canvas.canvasy(event.x)  # Select column
         line_coords = self.cell_width / 2  # Select the line of discs to play
 
         # Find the right disc and hide it
         closest_disc = self.canvas.find_closest(column_coords, line_coords)[0]
-        self.canvas.itemconfigure(closest_disc, fill='seashell', outline="lightgray")
+        self.canvas.itemconfigure(closest_disc, fill='seashell', outline='lightgray')
+
+        # Switch player
+        self.active_player = self.active_player.switch_player(self.player1, self.player2)

@@ -30,18 +30,18 @@ class Matrix:
 
     # Display all coordinates of Discs in a Matrix
     def display_matrix_with_coordinates(self):
-        print("Affichage de la matrice par coordonnées")
+        print('Affichage de la matrice par coordonnées')
         for line in self.lines:
             for disc in line:
-                print([disc.x, disc.y], end=" ")
-            print("")
-        print("")
+                print([disc.x, disc.y], end=' ')
+            print('')
+        print('')
 
     # Display all value of Discs in a Matrix
     def display_matrix_with_value(self):
-        print("Affichage de la matrice par valeur")
+        print('Affichage de la matrice par valeur')
         for line in self.lines:
             for disc in line:
-                print(disc.value, end=" ")
-            print("")
-        print("")
+                print(disc.value, end=' ')
+            print('')
+        print('')

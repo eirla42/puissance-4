@@ -3,5 +3,5 @@ class Disc:
         self.x = x  # column
         self.y = y  # line
         self.value = 0
-        self.player = 0
+        self.player = None
         self.shape = None
