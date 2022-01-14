@@ -1,3 +1,3 @@
-nb_lines = 6
-nb_columns = 7
-cell_width = 100
+NB_LINES = 6
+NB_COLUMNS = 7
+CELL_WIDTH = 100

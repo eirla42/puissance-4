@@ -10,8 +10,8 @@ connect4App = Window(root)
 
 # Declaration of window (title, dimensions, etc..)
 root.title('Puissance 4')
-root.maxsize(params.nb_columns * params.cell_width, (params.nb_lines + 1) * params.cell_width)
-root.minsize(params.nb_columns * params.cell_width, (params.nb_lines + 1) * params.cell_width)
+root.maxsize(params.NB_COLUMNS * params.CELL_WIDTH, (params.NB_LINES + 1) * params.CELL_WIDTH)
+root.minsize(params.NB_COLUMNS * params.CELL_WIDTH, (params.NB_LINES + 1) * params.CELL_WIDTH)
 
 # Show window
 root.mainloop()

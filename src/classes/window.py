@@ -24,9 +24,9 @@ class Window(Frame):
         self.discs_to_play = []
 
         # Dimensions
-        self.nb_lines = params.nb_lines
-        self.nb_columns = params.nb_columns
-        self.cell_width = params.cell_width
+        self.nb_lines = params.NB_LINES
+        self.nb_columns = params.NB_COLUMNS
+        self.cell_width = params.CELL_WIDTH
 
         Main(self)
 

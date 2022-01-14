@@ -10,4 +10,3 @@ class Player:
             return player2
         else:
             return player1
-
