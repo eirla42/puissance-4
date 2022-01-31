@@ -131,6 +131,7 @@ class Window(Frame):
     # End of the game
     def game_over(self):
         self.game.winner = self.game.active_player
+        self.game.stop_timer()
         self.game.display()
 
         game_over_text = self.game.winner.name + " wins !"
