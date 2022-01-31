@@ -1,6 +1,7 @@
 from tkinter import *
 
 from src.classes.main import Main
+from src.classes.game import Game
 from src.params import params
 
 
@@ -9,10 +10,8 @@ class Window(Frame):
         Frame.__init__(self, master)
         self.master = master
 
-        # Players
-        self.active_player = None
-        self.player1 = None
-        self.player2 = None
+        # Statistics of the game
+        self.game = Game()
 
         # Matrix
         self.matrix = None
@@ -98,7 +97,7 @@ class Window(Frame):
 
         # Find the right disc and show only this one
         closest_disc = self.canvas.find_closest(column_coords, line_coords)[0]
-        self.canvas.itemconfigure(closest_disc, fill=self.active_player.color, outline='black')
+        self.canvas.itemconfigure(closest_disc, fill=self.game.active_player.color, outline='black')
         for disc in self.discs_to_play:
             if disc != closest_disc:
                 self.canvas.itemconfigure(disc, fill='seashell', outline='lightgray')
@@ -113,7 +112,7 @@ class Window(Frame):
         self.canvas.itemconfigure(closest_disc, fill='seashell', outline='lightgray')
 
         # Add player's disc to matrix
-        matrix_and_changed_disc = self.matrix.play(self.active_player, int(column_coords // self.cell_width))
+        matrix_and_changed_disc = self.matrix.play(self.game.active_player, int(column_coords // self.cell_width))
         temp_matrix = matrix_and_changed_disc[0]
         changed_disc = matrix_and_changed_disc[1]
 
@@ -122,18 +121,20 @@ class Window(Frame):
             self.canvas.itemconfigure(changed_disc.shape, fill=changed_disc.player.color, outline='black')
 
             # Check if 4 discs are connected --> If a player is the winner
-            if self.matrix.has_winner(self.active_player):
-                print("Winner :" + self.active_player.name)
+            if self.matrix.has_winner(self.game.active_player):
                 self.game_over()
             # Switch player
             else:
-                self.active_player = self.active_player.switch_player(self.player1, self.player2)
+                self.game.active_player = self.game.active_player.switch_player(self.game.player1, self.game.player2)
 
     # End of the game
     def game_over(self):
-        game_over_text = self.active_player.name + " wins !"
-        self.canvas.create_text(0, -100, text=game_over_text, font=('Times New Roman', self.cell_width // 2, 'bold'), fill='black',
-                                tags="game_over_text", anchor='w')
+        self.game.winner = self.game.active_player
+        self.game.display()
+
+        game_over_text = self.game.winner.name + " wins !"
+        self.canvas.create_text(0, -100, text=game_over_text, font=('Times New Roman', self.cell_width // 2, 'bold'),
+                                fill='black', tags="game_over_text", anchor='w')
 
         # Start the moving text and lock the game
         self.game_over_text_animation()
