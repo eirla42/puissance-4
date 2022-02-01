@@ -11,4 +11,5 @@ def seconds_to_h_m_s(seconds):
 
 # Convert seconds into Datetime
 def seconds_to_date(seconds):
-    return datetime.fromtimestamp(seconds)
+    date = datetime.fromtimestamp(seconds)
+    return date.strftime('%d-%m-%Y %H:%M:%S')
