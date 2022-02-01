@@ -55,10 +55,10 @@ class Game:
             'winner_id': str(self.winner.id), 'winner_name': self.winner.name,
             'winner_color': self.winner.color, 'winner_nb_moves': str(self.winner.nb_moves)
         }
-        dataframe = pd.DataFrame(data_to_export, columns=data_title, index='0')
+        dataframe = pd.DataFrame(data_to_export, columns=data_title, index=['0'])
 
         # Export statistics (and headers if the file does not exist yet)
-        csv_path = './previous_games.csv'
+        csv_path = '../previous_games.csv'
         if exists(csv_path):
             dataframe.to_csv(csv_path, mode='a', index=False, header=False, sep=';')
         else:
