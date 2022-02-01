@@ -133,7 +133,9 @@ class Window(Frame):
         self.game.winner = self.game.active_player
         self.game.stop_timer()
         self.game.display()
+        self.game.export_csv()
 
+        # Winning text
         game_over_text = self.game.winner.name + " wins !"
         self.canvas.create_text(0, -100, text=game_over_text, font=('Times New Roman', self.cell_width // 2, 'bold'),
                                 fill='black', tags="game_over_text", anchor='w')
