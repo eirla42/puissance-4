@@ -59,7 +59,8 @@ class Game:
 
         # Export statistics (and headers if the file does not exist yet)
         csv_path = '../previous_games.csv'
+        delimiter = ';'
         if exists(csv_path):
-            dataframe.to_csv(csv_path, mode='a', index=False, header=False, sep=';')
+            dataframe.to_csv(csv_path, mode='a', index=False, header=False, sep=delimiter)
         else:
-            dataframe.to_csv(csv_path, mode='a', index=False, header=True, sep=';')
+            dataframe.to_csv(csv_path, mode='a', index=False, header=True, sep=delimiter)
