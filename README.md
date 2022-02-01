@@ -1,5 +1,5 @@
 # Puissance 4
-Jeu du Puissance 4 avec une base de données gérant les statistiques des différentes parties et des joueurs
+Jeu du Puissance 4 avec une base de données gérant les statistiques des différentes parties et des joueurs.
 Ce jeu est limité uniquement à 2 joueurs.
 
 ## Paramètres
