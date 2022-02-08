@@ -27,7 +27,91 @@ class Window(Frame):
         self.nb_columns = params.NB_COLUMNS
         self.cell_width = params.CELL_WIDTH
 
-        Main(self)
+        # Menu result
+        self.player_1_name = None
+        self.player_2_name = None
+        self.player_1_color = None
+        self.player_2_color = None
+
+        # Menu texts
+        self.label = None
+        self.player_1_name_label = None
+        self.player_2_name_label = None
+        self.player_1_color_label = None
+        self.player_2_color_label = None
+        self.submitButton = None
+
+        self.main = Main(self)
+
+    # Create menu dialog
+    def init_menu(self):
+        font_size = self.cell_width // 5
+
+        # Label
+        self.label = Label(self.master, text="Information des joueurs", font=font_size * 2)
+        self.label.pack(padx=50, pady=(10, 30))
+
+        # Input name player 1
+        self.player_1_name_label = Label(self.master, text="Nom du joueur 1", font=font_size)
+        self.player_1_name_label.pack()
+        self.player_1_name = Entry(self.master, width=font_size)
+        self.player_1_name.pack(pady=(0, 10))
+
+        # Select color player 1
+        self.player_1_color_label = Label(self.master, text="Couleur du joueur 2 :", font=font_size)
+        self.player_1_color_label.pack()
+        self.player_1_color = Listbox(self.master, height=4, selectmode='single', exportselection=False)
+        self.player_1_color.pack(pady=(0, 40))
+        self.player_1_color.insert(0, 'yellow')
+        self.player_1_color.insert(1, 'green')
+        self.player_1_color.insert(2, 'blue')
+        self.player_1_color.insert(3, 'white')
+
+        # Input name player 2
+        self.player_2_name_label = Label(self.master, text="Nom du joueur 2 :", font=font_size)
+        self.player_2_name_label.pack()
+        self.player_2_name = Entry(self.master, width=font_size)
+        self.player_2_name.pack(pady=(0, 10))
+
+        # Select color player 1
+        self.player_2_color_label = Label(self.master, text="Couleur du joueur 2 :", font=font_size)
+        self.player_2_color_label.pack()
+        self.player_2_color = Listbox(self.master, height=4, selectmode='single', exportselection=False)
+        self.player_2_color.pack(pady=(0, 40))
+        self.player_2_color.insert(0, 'red')
+        self.player_2_color.insert(1, 'magenta')
+        self.player_2_color.insert(2, 'purple')
+        self.player_2_color.insert(3, 'black')
+
+        # Submit
+        self.submitButton = Button(self.master, text="Valider", command=self.validate, font=font_size // 2)
+        self.submitButton.pack(pady=(0, 10))
+
+    # Menu validation
+    def validate(self):
+        self.master.maxsize(params.NB_COLUMNS * params.CELL_WIDTH, (params.NB_LINES + 1) * params.CELL_WIDTH)
+        self.master.minsize(params.NB_COLUMNS * params.CELL_WIDTH, (params.NB_LINES + 1) * params.CELL_WIDTH)
+
+        # Get all players parameters
+        name1 = self.player_1_name.get() or 'Joueur 1'
+        name2 = self.player_2_name.get() or 'Joueur 2'
+        color1 = ",".join([self.player_1_color.get(i) for i in self.player_1_color.curselection()]) or 'yellow'
+        color2 = ",".join([self.player_2_color.get(i) for i in self.player_2_color.curselection()]) or 'red'
+
+        # Destroy menu
+        self.player_1_name.destroy()
+        self.player_2_name.destroy()
+        self.player_1_color.destroy()
+        self.player_2_color.destroy()
+        self.label.destroy()
+        self.player_1_name_label.destroy()
+        self.player_2_name_label.destroy()
+        self.player_1_color_label.destroy()
+        self.player_2_color_label.destroy()
+        self.submitButton.destroy()
+
+        # Start the connect4 game
+        self.main.initialization(name1, name2, color1, color2)
 
     # Create canvas
     def init_canvas(self):
@@ -136,7 +220,7 @@ class Window(Frame):
         self.game.export_csv()
 
         # Winning text
-        game_over_text = self.game.winner.name + " wins !"
+        game_over_text = self.game.winner.name + " gagne !"
         self.canvas.create_text(0, -100, text=game_over_text, font=('Times New Roman', self.cell_width // 2, 'bold'),
                                 fill='black', tags="game_over_text", anchor='w')
 
