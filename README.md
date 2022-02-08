@@ -6,5 +6,17 @@ Ce jeu est limité uniquement à 2 joueurs.
 Les paramètres sont modifiables dans le fichier params.py si l'on souhaite 
 agrandir ou réduire la grille de jeu, le nombre de lignes et de colonnes, etc.
 
+## Lancement du jeu
+3 choix possibles : 
+* Soit en ligne de commande avec python
+```
+    python.exe ./src/puissance4.py
+```
+* Soit en ligne de commande avec l'exécutable
+```
+    ./dist/puissance4.exe
+```
+* Soit en ouvrant le puissance.exe à partir du répertoire dist/
+
 ## Auteurs
 Guillaume Hannotte (Database) - Mathieu Maisonnette (Connect4 - src)
