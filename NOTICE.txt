@@ -1,0 +1,10 @@
+Le projet ce divise en 2 parties, un jeu puissance 4 et un notebook (.ipynb) afin de visualiser les données des parties.
+Le jeux ce lance à partir de l'éxcutable dans le répértoire /dist "puissance4.exe". (windows sur et normalement Linux). 
+Cependant on peut bien sur lancer le projet à partir des fichiers sources pour Linux si l'éxécutable ne fonctionne pas sur cette OS.
+Une fois la partie finit, les données sont enregistrés dans un csv dans le répertoire racine "previous_games.csv".
+Dans ce méme réperoire figure le notebook "dataviz_panda.ipynb" permetant de visualiser les données du csv génréré.
+Notez que nous avons également ajouté un csv "previous_games_statique.csv" permettant d'avoir un csv déja remplit si pour la correction vous ne souhaitez par lancer x fois le programme.
+Il faudra juste modfier dans le notebook la commande data=pd.read_csv("previous_games.csv") afin de charger le bon csv.
+/!\ nous avons globalement réglé tous les éventuelles erreurs du programme éxépté un dernier. Si jamais vous ouvrez le "previous_games.csv" avec excel et peut étre avec d'autres
+logiciel de méme nature, le programme ne pourras plus écrire dans ce fichier et il plantera. Si vous souhaitez lancer le programme, veuillez à ne pas ouvrir le csv avec un autre logiciel.
+Bon jeu ! :)
