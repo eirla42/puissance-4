@@ -18,5 +18,9 @@ agrandir ou réduire la grille de jeu, le nombre de lignes et de colonnes, etc.
 ```
 * Soit en ouvrant le puissance.exe à partir du répertoire dist/
 
+## Explication détaillée
+
+Retrouvez les explications détaillées dans le fichier NOTICE.md
+
 ## Auteurs
 Guillaume Hannotte (Database) - Mathieu Maisonnette (Connect4 - src)
