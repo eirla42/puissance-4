@@ -1,0 +1,7 @@
+player1_id,player1_name,player1_color,player1_nb_moves,player2_id,player2_name,player2_color,player2_nb_moves,winner_id,winner_name,winner_color,winner_nb_moves,start_time,end_time,game_time
+1,guillaume,yellow,8,2,mathieu,red,7,1,guillaume,yellow,8,08-02-2022 18:42:23,08-02-2022 18:43:21,00:00:58
+1,guillaume,yellow,4,2,mathieu,red,4,2,mathieu,red,4,08-02-2022 19:01:42,08-02-2022 19:02:16,00:00:34
+1,julien,yellow,4,2,mathieu,red,4,2,mathieu,red,4,08-02-2022 19:04:10,08-02-2022 19:04:40,00:00:29
+1,julien,yellow,4,2,guillaume,red,4,2,guillaume,red,4,08-02-2022 19:29:32,08-02-2022 19:30:01,00:00:29
+1,maxime,yellow,6,2,julien,red,6,2,julien,red,6,08-02-2022 19:30:21,08-02-2022 19:30:44,00:00:22
+1,victore,yellow,6,2,mathieu,red,5,1,victore,yellow,6,08-02-2022 19:31:03,08-02-2022 19:31:25,00:00:22
